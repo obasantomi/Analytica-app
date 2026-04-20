@@ -1,13 +1,74 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import delay from "delay";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
+import { useForm } from "react-hook-form";
 import { BiShow } from "react-icons/bi";
+import { FcGoogle } from "react-icons/fc";
+import z from "zod";
+import { SignUpSchema } from "../(authSchema)/authSchema";
+import { signIn } from "next-auth/react";
+import toast, { Toaster } from "react-hot-toast";
+
+type SignUpData = z.infer<typeof SignUpSchema>;
 
 const page = () => {
   const [show, setShow] = useState(false);
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignUpData>({
+    resolver: zodResolver(SignUpSchema),
+  });
+
+  const onsubmit = async (data: SignUpData) => {
+    try {
+      const response = await axios.post("/api/user", data);
+      console.log(response.data.message);
+      if (response.status === 201) {
+        const sessionCreate = await signIn("credentials", {
+          email: data.email,
+          password: data.password,
+          redirect: false,
+        });
+
+        if (sessionCreate?.ok) {
+          router.push("/dashboard");
+        } else {
+          toast.error("Account created but failed to sign in.", {
+            position: "top-right",
+            style: { fontSize: "14px" },
+          });
+        }
+      } else {
+        toast.error("Failed to create account. Please try again.", {
+          position: "top-right",
+          style: { fontSize: "14px" },
+        });
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.status === 409) {
+        toast.error(error.message, {
+          position: "top-right",
+          style: { fontSize: "14px" },
+        });
+      } else {
+        toast.error("An unexpected error occurred. Please try again.", {
+          position: "top-right",
+          style: { fontSize: "14px" },
+        });
+      }
+    }
+  };
 
   return (
     <div className="w-full mx-auto bg-white h-full rounded-r-lg shadow-[0_40px_120px_rgba(0,0,0,0.12)] p-8 text-slate-900">
+      <Toaster />
       <div className="space-y-3 text-center mb-8 mt-8">
         <h1 className="text-4xl font-extrabold">Create Your Account</h1>
         <p className="text-slate-500">
@@ -29,7 +90,7 @@ const page = () => {
         </div>
       </div>
 
-      <form className="space-y-8">
+      <form onSubmit={handleSubmit(onsubmit)} className="space-y-8">
         <div>
           <label
             htmlFor="full-name"
@@ -39,11 +100,16 @@ const page = () => {
           </label>
           <input
             id="full-name"
-            name="fullName"
+            {...register("fullName")}
             type="text"
             placeholder="Alex Rivers"
             className="w-full rounded-3xl border border-slate-200 bg-slate-100 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-teal-400 focus:ring-2 focus:ring-teal-100"
           />
+          {errors.fullName && (
+            <p className="text-red-500 text-xs mt-1">
+              {errors.fullName?.message}
+            </p>
+          )}
         </div>
 
         <div>
@@ -55,11 +121,14 @@ const page = () => {
           </label>
           <input
             id="email"
-            name="email"
+            {...register("email")}
             type="email"
             placeholder="alex@analytics.co"
             className="w-full rounded-3xl border border-slate-200 bg-slate-100 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-teal-400 focus:ring-2 focus:ring-teal-100"
           />
+          {errors.email && (
+            <p className="text-red-500 text-xs mt-1">{errors.email?.message}</p>
+          )}
         </div>
 
         <div>
@@ -74,7 +143,7 @@ const page = () => {
           <div className="relative">
             <input
               id="password"
-              name="password"
+              {...register("password")}
               type={show ? "text" : "password"}
               placeholder="••••••••"
               className="w-full rounded-3xl border border-slate-200 bg-slate-100 px-4 py-3 pr-12 text-sm text-slate-900 outline-none transition focus:border-teal-400 focus:ring-2 focus:ring-teal-100"
@@ -87,10 +156,30 @@ const page = () => {
               <BiShow className="text-xl" />
             </button>
           </div>
+          {errors.password && (
+            <p className="text-red-500 text-xs mt-1">
+              {errors.password?.message}
+            </p>
+          )}
         </div>
 
-        <button className="w-full rounded-3xl bg-teal-400 px-5 py-4 mt-8 text-sm font-semibold text-slate-950 transition hover:bg-teal-300">
-          Create Account
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={`w-full flex justify-center gap-4 rounded-3xl px-5 py-4 mt-8 text-sm font-semibold text-slate-950 transition ${
+            isSubmitting
+              ? "bg-slate-300 cursor-not-allowed"
+              : "bg-teal-400 hover:bg-teal-300"
+          }`}
+        >
+          {isSubmitting ? (
+            <div className="flex items-center gap-2 justify-center">
+              <span className="loading loading-xm loading-infinity text-black"></span>
+              <p className="italic">Creating account...</p>
+            </div>
+          ) : (
+            "Create Account"
+          )}
         </button>
       </form>
 

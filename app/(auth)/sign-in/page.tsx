@@ -1,13 +1,52 @@
 "use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
+import { useForm } from "react-hook-form";
 import { BiShow } from "react-icons/bi";
+import { FcGoogle } from "react-icons/fc";
+import z from "zod";
+import { SignInSchema } from "../(authSchema)/authSchema";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+
+type signInData = z.infer<typeof SignInSchema>;
 
 const page = () => {
   const [show, setShow] = useState(false);
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<signInData>({
+    resolver: zodResolver(SignInSchema),
+  });
+
+  const onSubmit = async (data: signInData) => {
+    const response = await signIn("credentials", {
+      ...data,
+      redirect: false,
+    });
+
+    if (response?.ok) {
+      toast.success("Signed in successfully!", {
+        position: "top-right",
+        style: { fontSize: "14px" },
+      });
+      router.push("/dashboard");
+    } else {
+      console.log("Sign in failed");
+      toast.error(
+        "Failed to sign in. Please check your credentials and try again.",
+        { position: "top-right", style: { fontSize: "14px" } },
+      );
+    }
+  };
 
   return (
     <div className="w-full h-full mx-auto bg-white rounded-r-lg shadow-[0_40px_120px_rgba(0,0,0,0.12)] p-8 text-slate-900">
+      <Toaster />
       <div className="space-y-3 text-center mb-12 mt-20">
         <h1 className="text-4xl font-extrabold">Welcome Back</h1>
         <p className="text-slate-500">
@@ -15,7 +54,7 @@ const page = () => {
         </p>
       </div>
 
-      <form className="space-y-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <div>
           <label
             htmlFor="email"
@@ -25,11 +64,14 @@ const page = () => {
           </label>
           <input
             id="email"
-            name="email"
             type="email"
-            placeholder="name@company.com"
+            {...register("email")}
+            placeholder="name@gmail.com"
             className="w-full rounded-3xl border border-slate-200 bg-slate-100 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-teal-400 focus:ring-2 focus:ring-teal-100"
           />
+          {errors.email && (
+            <p className="text-red-500 text-xs mt-1">{errors.email?.message}</p>
+          )}
         </div>
 
         <div>
@@ -50,7 +92,7 @@ const page = () => {
           <div className="relative">
             <input
               id="password"
-              name="password"
+              {...register("password")}
               type={show ? "text" : "password"}
               placeholder="••••••••"
               className="w-full rounded-3xl border border-slate-200 bg-slate-100 px-4 py-3 pr-12 text-sm text-slate-900 outline-none transition focus:border-teal-400 focus:ring-2 focus:ring-teal-100"
@@ -63,10 +105,30 @@ const page = () => {
               <BiShow className="text-xl" />
             </button>
           </div>
+          {errors.password && (
+            <p className="text-red-500 text-xs mt-1">
+              {errors.password?.message}
+            </p>
+          )}
         </div>
 
-        <button className="w-full rounded-3xl bg-teal-400 px-5 py-4 text-sm font-semibold text-slate-950 transition hover:bg-teal-300">
-          Sign In →
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={`w-full flex justify-center gap-4 rounded-3xl px-5 py-4 text-sm font-semibold text-slate-950 transition ${
+            isSubmitting
+              ? "bg-slate-300 cursor-not-allowed"
+              : "bg-teal-400 hover:bg-teal-300"
+          }`}
+        >
+          {isSubmitting ? (
+            <div className="flex items-center gap-2 justify-center">
+              <span className="loading loading-xm loading-infinity text-black"></span>
+              <p className="italic">Signing in...</p>
+            </div>
+          ) : (
+            "Sign In →"
+          )}{" "}
         </button>
       </form>
 
