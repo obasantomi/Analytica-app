@@ -34,8 +34,9 @@ const authOptions: NextAuthOptions = {
         return {
           id: user.id,
           email: user.email,
-          name: user.fullName,
+          fullName: user.fullName,
           level: user.level,
+          username: user.username || undefined,
         };
       },
     }),
@@ -45,6 +46,8 @@ const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.level = user.level;
+        token.username = user.username || undefined;
+        token.fullName = user.fullName!;
       }
       return token;
     },
@@ -52,6 +55,8 @@ const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       session.user.id = token.sub!;
       session.user.level = token.level;
+      session.user.username = token.username || undefined;
+      session.user.fullName = token.fullName!;
       return session;
     },
   },

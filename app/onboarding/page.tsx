@@ -19,7 +19,7 @@ const Onboarding = async () => {
   return (
     <OnboardingClient
       userEmail={session.user.email!}
-      userName={session.user.name!}
+      userName={session.user.fullName!}
     />
   );
 };

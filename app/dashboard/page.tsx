@@ -18,7 +18,10 @@ const Dashboard = async () => {
   return (
     <div className="p-5">
       <div className="text-black">
-        <b className="block">{session?.user?.name}</b> Welcome to the dashboard!
+        <b className="block">
+          {session?.user?.username || session?.user?.fullName}
+        </b>{" "}
+        Welcome to the dashboard!
       </div>
     </div>
   );
