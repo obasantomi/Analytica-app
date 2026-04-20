@@ -242,9 +242,7 @@ const OnboardingClient = ({ userEmail, userName }: OnboardingClientProps) => {
                 onChange={(e) => handleExperienceSelect(e)}
                 className="select select-bordered w-full bg-white text-slate-900"
               >
-                <option aria-disabled value="">
-                  Select your analytics experience
-                </option>
+                <option value="">Select your analytics experience</option>
                 <option value="STUDENT">Student</option>
                 <option value="ANALYST">Analyst</option>
                 <option value="MANAGER">Manager</option>
