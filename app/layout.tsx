@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/icon.svg",
+        url: "https://analytica-neon.vercel.app/og-image.png",
         width: 1200,
         height: 630,
         alt: "Analytica",
