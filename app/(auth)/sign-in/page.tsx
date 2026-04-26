@@ -36,11 +36,11 @@ const page = () => {
       });
       router.push("/dashboard");
     } else {
-      console.log("Sign in failed");
-      toast.error(
-        "Failed to sign in. Please check your credentials and try again.",
-        { position: "top-right", style: { fontSize: "14px" } },
-      );
+      console.log("Sign in failed: ", response?.error);
+      toast.error("Invalid email or password.", {
+        position: "top-right",
+        style: { fontSize: "14px" },
+      });
     }
   };
 
@@ -139,7 +139,10 @@ const page = () => {
         </div>
       </div>
 
-      <button className="w-full inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50">
+      <button
+        onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+        className="w-full inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50"
+      >
         <FcGoogle className="text-2xl" />
         Continue with Google
       </button>

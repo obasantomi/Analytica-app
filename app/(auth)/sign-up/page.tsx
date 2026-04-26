@@ -1,7 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import delay from "delay";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -52,8 +51,8 @@ const page = () => {
         });
       }
     } catch (error) {
-      if (axios.isAxiosError(error) && error.status === 409) {
-        toast.error(error.message, {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.error || "Something went wrong.", {
           position: "top-right",
           style: { fontSize: "14px" },
         });
@@ -77,7 +76,10 @@ const page = () => {
       </div>
 
       <div className="space-y-4">
-        <button className="w-full inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50">
+        <button
+          onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+          className="w-full inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50"
+        >
           <FcGoogle className="text-2xl" />
           Continue with Google
         </button>

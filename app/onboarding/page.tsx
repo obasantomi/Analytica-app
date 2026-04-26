@@ -6,20 +6,23 @@ import OnboardingClient from "./OnboardingClient";
 
 const Onboarding = async () => {
   const session = await getServerSession(authOptions);
-  if (!session) {
+  if (!session?.user.email) {
     redirect("/sign-in");
   }
   const user = await prisma.user.findUnique({
-    where: { email: session.user.email || undefined },
+    where: { email: session.user.email },
   });
 
-  if (user?.onboardingCompleted) {
+  if (!user) return null;
+
+  if (user.onboardingCompleted) {
     redirect("/dashboard");
   }
+
   return (
     <OnboardingClient
       userEmail={session.user.email!}
-      userName={session.user.fullName!}
+      userName={session.user.name!}
     />
   );
 };
