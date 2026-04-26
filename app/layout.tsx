@@ -28,7 +28,14 @@ export const metadata: Metadata = {
     siteName: "Analytica",
     url: "https://analytica-neon.vercel.app/",
     type: "website",
-    images: "/icon.svg",
+    images: [
+      {
+        url: "/icon.svg",
+        width: 1200,
+        height: 630,
+        alt: "Analytica",
+      },
+    ],
   },
 };
 
