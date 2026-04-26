@@ -20,6 +20,14 @@ export const metadata: Metadata = {
   icons: {
     icon: "/icon.svg",
   },
+  openGraph: {
+    title: "Analytica",
+    description:
+      "Learn data analytics the practical way. Analytica uses real datasets, AI-generated tasks, and personalized feedback to help you build real skills.",
+    siteName: "Analytica",
+    url: "https://analytica-neon.vercel.app/",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
