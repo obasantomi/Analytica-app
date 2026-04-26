@@ -16,7 +16,7 @@ const Onboarding = async () => {
   if (!user) return null;
 
   if (user.onboardingCompleted) {
-    redirect("/dashboard");
+    redirect("/");
   }
 
   return (

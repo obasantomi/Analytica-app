@@ -34,7 +34,7 @@ const page = () => {
         position: "top-right",
         style: { fontSize: "14px" },
       });
-      router.push("/dashboard");
+      router.push("/");
     } else {
       console.log("Sign in failed: ", response?.error);
       toast.error("Invalid email or password.", {
@@ -140,7 +140,7 @@ const page = () => {
       </div>
 
       <button
-        onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+        onClick={() => signIn("google", { callbackUrl: "/" })}
         className="w-full inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50"
       >
         <FcGoogle className="text-2xl" />

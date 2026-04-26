@@ -83,7 +83,7 @@ const OnboardingClient = ({ userEmail, userName }: OnboardingClientProps) => {
           position: "top-right",
           style: { fontSize: "14px" },
         });
-        router.push("/dashboard");
+        router.push("/");
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {

@@ -37,7 +37,7 @@ const page = () => {
         });
 
         if (sessionCreate?.ok) {
-          router.push("/dashboard");
+          router.push("/");
         } else {
           toast.error("Account created but failed to sign in.", {
             position: "top-right",
@@ -77,7 +77,7 @@ const page = () => {
 
       <div className="space-y-4">
         <button
-          onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+          onClick={() => signIn("google", { callbackUrl: "/" })}
           className="w-full inline-flex items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-800 shadow-sm transition hover:bg-slate-50"
         >
           <FcGoogle className="text-2xl" />

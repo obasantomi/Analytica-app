@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/prisma/client";
 import { FiUser } from "react-icons/fi";
-import authOptions from "./api/auth/authOptions";
+import authOptions from "../api/auth/authOptions";
 
 const Dashboard = async () => {
   const session = await getServerSession(authOptions);
