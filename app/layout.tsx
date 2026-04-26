@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/icon.svg",
   },
+
   openGraph: {
     title: "Analytica",
     description:
@@ -27,6 +28,7 @@ export const metadata: Metadata = {
     siteName: "Analytica",
     url: "https://analytica-neon.vercel.app/",
     type: "website",
+    images: "/icon.svg",
   },
 };
 
