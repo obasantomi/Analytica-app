@@ -47,10 +47,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased bg-[#F2F4F6] overflow-hidden`}
     >
       <AuthProvider>
-        <body className="min-h-screen bg-white">{children}</body>
+        <body className="min-h-screen">{children}</body>
       </AuthProvider>
     </html>
   );
