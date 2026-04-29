@@ -1,4 +1,4 @@
-import ProjectLabLabel from "../components/ProjectLabLabel";
+import ProjectLabLabel from "../components/ProjectLabView";
 
 const ProjectLabPage = () => <ProjectLabLabel />;
 

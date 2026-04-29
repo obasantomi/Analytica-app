@@ -1,9 +1,8 @@
 import { getServerSession } from "next-auth";
-
 import { redirect } from "next/navigation";
 import { prisma } from "@/prisma/client";
 import authOptions from "../api/auth/authOptions";
-import DashboardLabel from "./components/DashboardLabel";
+import DashboardView from "./components/DashboardView";
 
 const Dashboard = async () => {
   const session = await getServerSession(authOptions);
@@ -22,7 +21,7 @@ const Dashboard = async () => {
 
   return (
     <div>
-      <DashboardLabel />
+      <DashboardView />
     </div>
   );
 };

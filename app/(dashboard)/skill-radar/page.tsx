@@ -1,5 +1,5 @@
-import SkillRadarLabel from "../components/SkillRadarLabel";
+import SkillRadarView from "../components/SkillRadarView";
 
-const SkillRadarPage = () => <SkillRadarLabel />;
+const SkillRadarPage = () => <SkillRadarView />;
 
 export default SkillRadarPage;

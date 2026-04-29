@@ -34,16 +34,11 @@ const navItems: NavItem[] = [
 
 const DashboardSidebar = ({ level, role }: DashboardNavProps) => {
   const pathname = usePathname() || "/";
-
-  const isActive = (href: string) => {
-    if (href === "/") {
-      return pathname === "/";
-    }
-    return pathname === href || pathname.startsWith(`${href}/`);
-  };
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <div className="flex flex-col gap-90 justify-between bg-[#F2F4F6] px-6 py-6">
+    <div className="flex flex-col justify-between  h-full overflow-y-scroll bg-[#F2F4F6] px-6 py-6">
       <div>
         <div className="flex items-center mb-5 gap-3 rounded-3xl  py-4 ">
           <img src="/images/Ai.svg" alt="" className="" />
