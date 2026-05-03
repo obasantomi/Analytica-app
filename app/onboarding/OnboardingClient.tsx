@@ -269,7 +269,7 @@ const OnboardingClient = ({ userEmail, userName }: OnboardingClientProps) => {
                   label={label}
                   isSelected={selections.domains.includes(label)}
                   onClick={() =>
-                    setSelections((prev) => ({
+                    setSelections((prev) => ({ 
                       ...prev,
                       domains: prev.domains.includes(label)
                         ? prev.domains.filter((d) => d !== label)

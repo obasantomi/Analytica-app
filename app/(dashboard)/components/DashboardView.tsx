@@ -1,12 +1,10 @@
 import DashboardStatCard from "./DashboardStatCard";
-import ProjectCard from "./ProjectCard";
+import RecentProjectsView from "./RecentProjectsView";
 import SkillRadarCard from "./SkillRaderChart";
-import { GoArrowRight } from "react-icons/go";
-import { LuBrainCircuit } from "react-icons/lu";
 
 const DashboardView = () => (
-  <section className="px-10 pt-7.5 pb-20 h-full w-full">
-    <div className="flex w-full items-center gap-10 justify-between">
+  <section className="px-5 lg:px-10 pt-7.5 pb-17 w-full">
+    <div className="flex flex-col items-start lg:flex-row w-full lg:items-center gap-10 justify-between">
       <div className="flex-1 flex gap-5 flex-col">
         <div>
           <h1 className="text-3xl font-semibold text-slate-900">Dashboard</h1>
@@ -32,58 +30,7 @@ const DashboardView = () => (
 
     <SkillRadarCard />
 
-    <div className="w-full">
-      <div className="flex w-full mb-8 justify-between items-center">
-        <p className="text-[24px] text-[#001736] font-bold">Recent Projects</p>
-        <button
-          className="group text-[#0058BB] flex items-center font-bold gap-2 transition-colors duration-200 cursor-pointer hover:text-[#004795]"
-          type="button"
-        >
-          <p>View Archive</p>
-          <span className="transition-transform duration-200 ease-out group-hover:translate-x-1 inline-flex">
-            <GoArrowRight />
-          </span>
-        </button>
-      </div>
-
-      <div className="flex gap-7.5 w-full overflow-x-scroll">
-        {/* First Project Card */}
-        <ProjectCard
-          category="SUPPLY CHAIN"
-          title="Demand Forecasting v2.1"
-          description="Optimizing warehouse allocation using XGBoost and seasonal trend decomposition."
-          completedAgo="2d ago"
-          solutionLink="#"
-          grade="A-"
-          aiReview={`"Model handling of outlier event 'Black Friday' was precise, but data normalization for 2021 was slightly aggressive. Consider log-transforms next time."`}
-          // onViewReview={() => console.log("Open review")}
-        />
-
-        {/* Second Project Card */}
-        <ProjectCard
-          category="SUPPLY CHAIN"
-          title="Demand Forecasting v2.1"
-          description="Optimizing warehouse allocation using XGBoost and seasonal trend decomposition."
-          completedAgo="2d ago"
-          solutionLink="#"
-          grade="A-"
-          aiReview={`"Model handling of outlier event 'Black Friday' was precise, but data normalization for 2021 was slightly aggressive. Consider log-transforms next time."`}
-          // onViewReview={() => console.log("Open review")}
-        />
-
-        {/* Third Project Card */}
-        <ProjectCard
-          category="SUPPLY CHAIN"
-          title="Demand Forecasting v2.1"
-          description="Optimizing warehouse allocation using XGBoost and seasonal trend decomposition."
-          completedAgo="2d ago"
-          solutionLink="#"
-          grade="A-"
-          aiReview={`"Model handling of outlier event 'Black Friday' was precise, but data normalization for 2021 was slightly aggressive. Consider log-transforms next time."`}
-          // onViewReview={() => console.log("Open review")}
-        />
-      </div>
-    </div>
+    <RecentProjectsView />
   </section>
 );
 

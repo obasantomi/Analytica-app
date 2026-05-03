@@ -13,41 +13,52 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-
-  // Your custom fields (safe to keep)
+  id                  String          @id @default(cuid())
+  name                String?
+  email               String?         @unique
+  emailVerified       DateTime?
+  image               String?
   password            String?
-  username            String?   @unique
-  level               UserLevel @default(BEGINNER)
-  onboardingCompleted Boolean   @default(false)
+  username            String?         @unique
+  level               UserLevel       @default(BEGINNER)
+  onboardingCompleted Boolean         @default(false)
   role                UserRole?
   domain              String[]
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  accounts            Account[]
+  sessions            Session[]
+  userProjects        UserProject[]
+  submissions         Submission[]
+  aiinteractions      AIInteraction[]
+  userSkills          UserSkill[]
+}
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+enum UserLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
 
-  accounts Account[]
-  sessions Session[]
+enum UserRole {
+  STUDENT
+  ANALYST
+  MANAGER
 }
 
 model Account {
-  id                String @id @default(cuid())
+  id                String  @id @default(cuid())
   userId            String
   type              String
   provider          String
   providerAccountId String
-
-  refresh_token String?
-  access_token  String?
-  expires_at    Int?
-  token_type    String?
-  scope         String?
-  id_token      String?
-  session_state String?
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
   // role          String @default()
 
   createdAt DateTime @default(now())
@@ -78,14 +89,166 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-enum UserLevel {
+model Dataset {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  sourceUrl   String?
+  metadata    Json? // columns, stats, preview
+  createdAt   DateTime  @default(now())
+  projects    Project[]
+  files       File[]
+}
+
+model Project {
+  id           String          @id @default(cuid())
+  title        String
+  description  String?
+  category     String?
+  difficulty   DifficultyLevel
+  domain       Domain
+  datasetId    String?
+  dataset      Dataset?        @relation(fields: [datasetId], references: [id])
+  createdAt    DateTime        @default(now())
+  tasks        Task[]
+  userProjects UserProject[]
+}
+
+enum DifficultyLevel {
   BEGINNER
   INTERMEDIATE
   ADVANCED
+  EXPERT
 }
 
-enum UserRole {
-  STUDENT
-  ANALYST
-  MANAGER
+enum Domain {
+  FINANCE
+  MARKETING
+  HEALTHCARE
+  OPERATIONS
+}
+
+model Task {
+  id          String         @id @default(cuid())
+  title       String
+  description String
+  discipline  TaskDiscipline
+  order       Int?
+  projectId   String
+  project     Project        @relation(fields: [projectId], references: [id])
+  submissions Submission[]
+}
+
+enum TaskDiscipline {
+  ANALYSIS
+  VISUALIZATION
+  CLEANING
+  THEORY
+}
+
+model UserProject {
+  id             String         @id @default(cuid())
+  userId         String
+  user           User           @relation(fields: [userId], references: [id])
+  projectId      String
+  project        Project        @relation(fields: [projectId], references: [id])
+  status         ProgressStatus @default(NOT_STARTED)
+  progress       Float?
+  score          Float?
+  grade          String?
+  aiFeedback     String?
+  aiQuestions    String?
+  attemptCount   Int            @default(0)
+  startedAt      DateTime?
+  completedAt    DateTime?
+  lastActivityAt DateTime       @default(now())
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+enum ProgressStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+model File {
+  id              String           @id @default(cuid())
+  url             String
+  format          String // csv, json, png, pdf
+  type            FileType
+  ownerType       FileOwnerType
+  createdAt       DateTime         @default(now())
+  datasetId       String?
+  dataset         Dataset?         @relation(fields: [datasetId], references: [id])
+  aiFiles         AIFile[]
+  submissionFiles SubmissionFile[]
+}
+
+enum FileType {
+  DATASET
+  SUBMISSION
+  AI_GENERATED
+}
+
+enum FileOwnerType {
+  USER
+  AI
+  SYSTEM
+}
+
+model Submission {
+  id        String           @id @default(cuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id])
+  taskId    String?
+  task      Task?            @relation(fields: [taskId], references: [id])
+  content   String?
+  score     Float?
+  feedback  String?
+  createdAt DateTime         @default(now())
+  files     SubmissionFile[]
+}
+
+model SubmissionFile {
+  id           String     @id @default(cuid())
+  submissionId String
+  fileId       String
+  submission   Submission @relation(fields: [submissionId], references: [id])
+  file         File       @relation(fields: [fileId], references: [id])
+}
+
+model AIInteraction {
+  id        String            @id @default(cuid())
+  userId    String?
+  user      User?             @relation(fields: [userId], references: [id])
+  type      AIInteractionType
+  input     Json
+  output    Json?
+  createdAt DateTime          @default(now())
+  files     AIFile[]
+}
+
+model AIFile {
+  id              String        @id @default(cuid())
+  aiInteractionId String
+  fileId          String
+  aiInteraction   AIInteraction @relation(fields: [aiInteractionId], references: [id])
+  file            File          @relation(fields: [fileId], references: [id])
+}
+
+enum AIInteractionType {
+  TASK_GENERATION
+  FEEDBACK
+  DATASET_ANALYSIS
+}
+
+model UserSkill {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  skill      String
+  score      Float    @default(0)
+  confidence Float?
+  updatedAt  DateTime @updatedAt
 }

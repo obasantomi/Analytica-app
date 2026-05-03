@@ -4,6 +4,7 @@ import { prisma } from "@/prisma/client";
 import authOptions from "../api/auth/authOptions";
 import DashboardView from "./components/DashboardView";
 
+
 const Dashboard = async () => {
   const session = await getServerSession(authOptions);
 

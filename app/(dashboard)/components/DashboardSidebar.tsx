@@ -1,5 +1,4 @@
 "use client";
-import AI from "../../app/assets/icon.svg";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -38,7 +37,7 @@ const DashboardSidebar = ({ level, role }: DashboardNavProps) => {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <div className="flex flex-col justify-between  h-full overflow-y-scroll bg-[#F2F4F6] px-6 py-6">
+    <div className="flex flex-col justify-between gap-70 lg:gap-0 lg:h-full overflow-y-scroll bg-[#F2F4F6] px-6 py-6">
       <div>
         <div className="flex items-center mb-5 gap-3 rounded-3xl  py-4 ">
           <img src="/images/Ai.svg" alt="" className="" />
@@ -74,13 +73,13 @@ const DashboardSidebar = ({ level, role }: DashboardNavProps) => {
       </div>
 
       <div className="mt-8 border-slate-200 pt-6">
-        <button
-          type="button"
+        <Link
+          href="/project-lab/new"
           className="flex w-full cursor-pointer items-center justify-center gap-2 rounded bg-[#00D4A5] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-100 transition hover:bg-[#00c392]"
         >
           <FiPlus className="h-4 w-4" />
           Start New Project
-        </button>
+        </Link>
 
         <div className="mt-6 space-y-3 pt-6 border-t border-slate-200">
           <button
