@@ -1,6 +1,6 @@
 import DashboardStatCard from "./DashboardStatCard";
 import RecentProjectsView from "./RecentProjectsView";
-import SkillRadarCard from "./SkillRaderChart";
+import SkillRadarCard from "./SkillRadarCard";
 
 const DashboardView = () => (
   <section className="px-5 lg:px-10 pt-7.5 pb-17 w-full">

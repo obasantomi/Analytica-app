@@ -61,7 +61,7 @@ const OnboardingClient = ({ userEmail, userName }: OnboardingClientProps) => {
     if (missingExpertise) missingFields.push("expertise level");
     if (missingExperience) missingFields.push("analytics experience");
     if (missingDomains) missingFields.push("domain interest(s)");
-
+    
     if (missingFields.length > 0) {
       const message =
         missingFields.length === 1
@@ -144,7 +144,7 @@ const OnboardingClient = ({ userEmail, userName }: OnboardingClientProps) => {
   const domainOptions = ["FINANCE", "MARKETING", "HEALTHCARE", "OPERATIONS"];
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
+    <div className="min-h-screen h-screen bg-slate-50 text-slate-900">
       <header className="border-b border-slate-200 bg-white">
         <div className="ml-3 flex max-w-7xl items-center px-6 py-4">
           <span className="inline-flex items-center gap-2 text-2xl font-semibold text-slate-900">
@@ -154,7 +154,7 @@ const OnboardingClient = ({ userEmail, userName }: OnboardingClientProps) => {
         </div>
       </header>
 
-      <main className="mx-auto grid lg:grid-cols-[370px_1fr] px-10 py-10 ">
+      <main className="mx-auto h-full grid lg:grid-cols-[370px_1fr] px-10 py-10 ">
         <Toaster position="top-right" />
         <aside className="hidden lg:block pr-8">
           <div className="space-y-6">
@@ -173,8 +173,8 @@ const OnboardingClient = ({ userEmail, userName }: OnboardingClientProps) => {
           </div>
         </aside>
 
-        <section className="flex-1 w-full space-y-6">
-          <div className="rounded-4xl  p-8 ">
+        <section className="flex-1 h-full overflow-scroll pb-15 [scrollbar-width:none] space-y-6">
+          <div className="rounded-4xl p-8 ">
             <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="text-sm border-l-4 pl-4 border-[#0058BB] mb-4 font-semibold uppercase tracking-[0.3em] text-slate-500">
@@ -183,7 +183,6 @@ const OnboardingClient = ({ userEmail, userName }: OnboardingClientProps) => {
               </div>
               <FiUser className="h-8 w-8 text-cyan-500" />
             </div>
-
             <label className="grid gap-2">
               <span className="text-sm font-medium text-slate-700">
                 Username
@@ -200,7 +199,6 @@ const OnboardingClient = ({ userEmail, userName }: OnboardingClientProps) => {
               )}
             </label>
           </div>
-
           <div className="rounded-4xl p-8 pt-2">
             <div className="flex items-center justify-between gap-4">
               <div>
@@ -249,7 +247,6 @@ const OnboardingClient = ({ userEmail, userName }: OnboardingClientProps) => {
               </select>
             </label>
           </div>
-
           <div>
             <p className="text-sm font-semibold border-l-4 pl-4 ml-8 border-[#0058BB] mb-4 uppercase tracking-[0.3em] text-slate-500">
               Personalization
@@ -261,7 +258,6 @@ const OnboardingClient = ({ userEmail, userName }: OnboardingClientProps) => {
                 Domain interest
               </h2>
             </div>
-
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {domainOptions.map((label) => (
                 <DomainButton
@@ -269,7 +265,7 @@ const OnboardingClient = ({ userEmail, userName }: OnboardingClientProps) => {
                   label={label}
                   isSelected={selections.domains.includes(label)}
                   onClick={() =>
-                    setSelections((prev) => ({ 
+                    setSelections((prev) => ({
                       ...prev,
                       domains: prev.domains.includes(label)
                         ? prev.domains.filter((d) => d !== label)
@@ -280,7 +276,6 @@ const OnboardingClient = ({ userEmail, userName }: OnboardingClientProps) => {
               ))}
             </div>
           </div>
-
           <div className="flex w-full pl-8 mt-20 justify-between items-center">
             <p className="text-[12px] max-w-92.5">
               By clicking Create Account, you agree to our terms of service and

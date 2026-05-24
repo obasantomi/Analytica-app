@@ -5,6 +5,8 @@ import { MdAutoAwesome } from "react-icons/md";
 import IndustryScenarioSelector from "../../components/IndustryScenarioSelector";
 import DifficultySelector from "../../components/DifficultySelector";
 import DisciplineSelector from "../../components/DisciplineSelector";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export interface FormData {
   discipline: "ANALYSIS" | "VISUALIZATION" | "CLEANING" | "THEORY" | null;
@@ -13,13 +15,15 @@ export interface FormData {
 }
 
 const ProjectLabView = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     discipline: null,
     difficulty: null,
     scenario: null,
   });
+  const [isGenerating, setIsGenerating] = useState(false);
 
-  const handleGenerateDataset = () => {
+  const handleGenerateDataset = async () => {
     const missingFields: string[] = [];
     if (!formData.discipline) missingFields.push("discipline");
     if (!formData.difficulty) missingFields.push("difficulty level");
@@ -36,7 +40,42 @@ const ProjectLabView = () => {
       return;
     }
 
-    console.log("Form data submitted:", formData);
+    setIsGenerating(true);
+
+    try {
+      const response = await axios.post("/api/projects", formData);
+
+      const { projectId } = response.data;
+
+      if (projectId) {
+        toast.success("Project created successfully!", {
+          style: { fontSize: "14px" },
+        });
+        router.push(`/project-lab/${projectId}`);
+      } else {
+        toast.error("Failed to create project. Please try again.", {
+          style: { fontSize: "14px" },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.error, {
+          style: { fontSize: "14px" },
+        });
+      } else {
+        toast.error("An unexpected error occurred. Please try again.", {
+          style: { fontSize: "14px" },
+        });
+      }
+    } finally {
+      setIsGenerating(false);
+      setFormData({
+        discipline: null,
+        difficulty: null,
+        scenario: null,
+      });
+    }
   };
 
   return (
@@ -84,11 +123,12 @@ const ProjectLabView = () => {
       <div className="mt-12">
         <button
           onClick={handleGenerateDataset}
-          className={`px-6 py-3 rounded-lg cursor-pointer font-semibold flex items-center gap-2 transition-all duration-200 ${"bg-blue-600 text-white hover:bg-blue-700 active:scale-95"}`}
+          disabled={isGenerating}
+          className={`px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-all duration-200 ${isGenerating ? "bg-blue-500/70 text-white cursor-not-allowed" : "bg-blue-600 text-white hover:bg-blue-700 active:scale-95"}`}
           type="button"
         >
           <MdAutoAwesome size={20} />
-          Generate Dataset
+          {isGenerating ? "Generating Dataset..." : "Generate Dataset"}
         </button>
       </div>
       <Toaster position="top-right" />

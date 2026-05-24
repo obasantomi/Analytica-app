@@ -90,14 +90,13 @@ model VerificationToken {
 }
 
 model Dataset {
-  id          String    @id @default(cuid())
-  name        String
-  description String?
-  sourceUrl   String?
-  metadata    Json? // columns, stats, preview
-  createdAt   DateTime  @default(now())
-  projects    Project[]
-  files       File[]
+  id            String    @id @default(cuid())
+  name          String
+  description   String?
+  datasetConfig Json
+  createdAt     DateTime  @default(now())
+  projects      Project[]
+  files         File[]
 }
 
 model Project {
@@ -156,14 +155,16 @@ model UserProject {
   progress       Float?
   score          Float?
   grade          String?
-  aiFeedback     String?
-  aiQuestions    String?
+  aiFeedback     Json?
+  aiQuestions    Json?
   attemptCount   Int            @default(0)
   startedAt      DateTime?
   completedAt    DateTime?
   lastActivityAt DateTime       @default(now())
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
+
+  @@unique([userId, projectId])
 }
 
 enum ProgressStatus {
