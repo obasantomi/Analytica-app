@@ -1,4 +1,6 @@
 "use client";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
   RadarChart,
   PolarGrid,
@@ -7,17 +9,71 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
-import { FiTrendingUp } from "react-icons/fi";
 
-const data = [
-  { subject: "DATA VIZ", current: 80, goal: 90 },
-  { subject: "INSIGHT GENERATION", current: 70, goal: 85 },
-  { subject: "STORYTELLING", current: 50, goal: 80 },
-  { subject: "BIAS & STATISTICAL AWARENESS", current: 45, goal: 75 },
-  { subject: "CLEANING", current: 60, goal: 70 },
+const DEFAULT_DATA = [
+  { subject: "DATA VISUALIZATION", current: 0, goal: 100 },
+  { subject: "INSIGHT GENERATION", current: 0, goal: 100 },
+  { subject: "STORYTELLING", current: 0, goal: 100 },
+  { subject: "BIAS & STATISTICAL AWARENESS", current: 0, goal: 100 },
+  { subject: "CLEANING", current: 0, goal: 100 },
 ];
 
-const SkillRadarCard = () => {
+function normalizeKey(key: string) {
+  return key.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+}
+
+export type SkillRadarChartProps = {
+  skills?: Record<string, number> | null;
+};
+
+const buildChartDataFromSkills = (
+  skillsObj: Record<string, number> | null | undefined,
+): typeof DEFAULT_DATA => {
+  if (!skillsObj) return DEFAULT_DATA;
+
+  const normalized: Record<string, number> = {};
+  Object.entries(skillsObj).forEach(([k, v]) => {
+    normalized[normalizeKey(k)] = Number(v) || 0;
+  });
+
+  return DEFAULT_DATA.map((d) => {
+    const key = normalizeKey(d.subject);
+    return {
+      ...d,
+      current: normalized[key] ?? d.current,
+    };
+  });
+};
+
+const SkillRadarCard = ({ skills }: SkillRadarChartProps) => {
+  const [chartData, setChartData] = useState(() =>
+    buildChartDataFromSkills(skills),
+  );
+
+  useEffect(() => {
+    if (skills) {
+      setChartData(buildChartDataFromSkills(skills));
+      return;
+    }
+
+    let mounted = true;
+
+    axios
+      .get("/api/user/skills")
+      .then((response) => {
+        if (!mounted) return;
+        const fetchedSkills = response.data?.skill ?? null;
+        setChartData(buildChartDataFromSkills(fetchedSkills));
+      })
+      .catch(() => {
+        // keep defaults on error
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, [skills]);
+
   return (
     <div className="w-full mx-auto mb-10 mt-15 bg-white rounded-xl p-8">
       {/* Header */}
@@ -44,9 +100,8 @@ const SkillRadarCard = () => {
 
       {/* Chart */}
       <div className="w-full" style={{ height: "320px" }}>
-        (
         <ResponsiveContainer width="100%" height={320}>
-          <RadarChart data={data}>
+          <RadarChart data={chartData}>
             <PolarGrid
               gridType="polygon"
               radialLines={false}
@@ -77,30 +132,6 @@ const SkillRadarCard = () => {
             />
           </RadarChart>
         </ResponsiveContainer>
-        )
-      </div>
-
-      {/* Bottom stats */}
-      <div className="grid grid-cols-3 gap-4 mt-8 pt-6 border-[#E0E3E5] border-t text-center">
-        <div>
-          <p className="text-xs text-[#001736]">BEST AREA</p>
-          <p className="font-semibold text-[12px] text-[#43474F]">Data Viz</p>
-        </div>
-
-        <div>
-          <p className="text-xs text-[#001736]">GROWTH AREA</p>
-          <p className="font-semibold text-[12px] text-[#43474F]">
-            Engineering
-          </p>
-        </div>
-
-        <div>
-          <p className="text-xs text-[#001736]">INSIGHT</p>
-          <p className="font-semibold text-[#43474F] text-[12px] flex items-center justify-center gap-1">
-            <FiTrendingUp className="text-emerald-500" />
-            +12% Gain
-          </p>
-        </div>
       </div>
     </div>
   );

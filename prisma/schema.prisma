@@ -109,7 +109,6 @@ model Project {
   datasetId    String?
   dataset      Dataset?        @relation(fields: [datasetId], references: [id])
   createdAt    DateTime        @default(now())
-  tasks        Task[]
   userProjects UserProject[]
 }
 
@@ -125,24 +124,6 @@ enum Domain {
   MARKETING
   HEALTHCARE
   OPERATIONS
-}
-
-model Task {
-  id          String         @id @default(cuid())
-  title       String
-  description String
-  discipline  TaskDiscipline
-  order       Int?
-  projectId   String
-  project     Project        @relation(fields: [projectId], references: [id])
-  submissions Submission[]
-}
-
-enum TaskDiscipline {
-  ANALYSIS
-  VISUALIZATION
-  CLEANING
-  THEORY
 }
 
 model UserProject {
@@ -203,7 +184,6 @@ model Submission {
   userId    String
   user      User             @relation(fields: [userId], references: [id])
   taskId    String?
-  task      Task?            @relation(fields: [taskId], references: [id])
   content   String?
   score     Float?
   feedback  String?
@@ -248,8 +228,10 @@ model UserSkill {
   id         String   @id @default(cuid())
   userId     String
   user       User     @relation(fields: [userId], references: [id])
-  skill      String
-  score      Float    @default(0)
+  skill      Json
   confidence Float?
   updatedAt  DateTime @updatedAt
+
+  @@unique([userId])
 }
+

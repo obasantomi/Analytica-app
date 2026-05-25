@@ -24,7 +24,6 @@ const DashboardView = () => (
 
       <div className="flex gap-4">
         <DashboardStatCard title="Total Projects" value={12} />
-        <DashboardStatCard title="Current Streak" value="4 wks" />
       </div>
     </div>
 
