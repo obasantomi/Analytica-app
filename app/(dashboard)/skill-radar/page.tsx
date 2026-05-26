@@ -61,18 +61,18 @@ const SkillRadarPage = async () => {
           </div>
         </div>
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-[1.4fr_0.95fr]">
+        <div className="mt-8 flex flex-col">
           <div>
             <SkillRadarCard skills={skillData} />
           </div>
 
           <div className="space-y-6">
-            <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="rounded border border-slate-200 bg-white p-6 shadow-sm">
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
                 Performance snapshot
               </p>
               <div className="mt-6 grid gap-4">
-                <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
+                <div className="rounded border border-slate-200 bg-slate-50 p-5">
                   <p className="text-xs text-slate-500">Best area</p>
                   <p className="mt-2 text-xl font-semibold text-slate-900">
                     {bestArea ? bestArea.subject : "No data available"}
@@ -84,7 +84,7 @@ const SkillRadarPage = async () => {
                   ) : null}
                 </div>
 
-                <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
+                <div className="rounded border border-slate-200 bg-slate-50 p-5">
                   <p className="text-xs text-slate-500">Growth area</p>
                   <p className="mt-2 text-xl font-semibold text-slate-900">
                     {growthArea ? growthArea.subject : "No data available"}
@@ -98,7 +98,7 @@ const SkillRadarPage = async () => {
               </div>
             </div>
 
-            <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="rounded border border-slate-200 bg-white p-6 shadow-sm">
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
@@ -129,7 +129,7 @@ const SkillRadarPage = async () => {
                     </div>
                   ))
                 ) : (
-                  <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-500">
+                  <div className="rounded border border-slate-200 bg-slate-50 p-5 text-sm text-slate-500">
                     No critical skill data available yet.
                   </div>
                 )}

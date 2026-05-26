@@ -1,6 +1,27 @@
+import { prisma } from "@/prisma/client";
 import DashboardStatCard from "./DashboardStatCard";
 import RecentProjectsView from "./RecentProjectsView";
 import SkillRadarCard from "./SkillRadarCard";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+
+const session = await getServerSession();
+
+if (!session?.user?.email) {
+  redirect("/sign-in");
+}
+
+const user = await prisma.user.findUnique({
+  where: { email: session.user.email },
+});
+
+if (!user) {
+  redirect("/sign-up");
+}
+
+const projectCount = await prisma.userProject.count({
+  where: { userId: user.id },
+});
 
 const DashboardView = () => (
   <section className="px-5 lg:px-10 pt-7.5 pb-17 w-full">
@@ -23,7 +44,7 @@ const DashboardView = () => (
       </div>
 
       <div className="flex gap-4">
-        <DashboardStatCard title="Total Projects" value={12} />
+        <DashboardStatCard title="Total Projects" value={projectCount} />
       </div>
     </div>
 

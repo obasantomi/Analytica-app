@@ -2,6 +2,8 @@ import { MentorChatMessage } from "@/app/(dashboard)/project-lab/components/AIMe
 import { GoogleGenAI } from "@google/genai";
 import { z } from "zod";
 
+const GEMINI_MODEL = "gemini-3.5-flash";
+
 const questionJsonSchema = {
   type: "array",
   items: {
@@ -215,7 +217,7 @@ const ai = new GoogleGenAI({
 export const chatService = {
   async analyze(assistantInstructions: string, content: MentorChatMessage[]) {
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: GEMINI_MODEL,
       contents: content.map((content) => ({
         role: content.role === "assistant" ? "model" : "user",
         parts: [{ text: content.text }],
@@ -233,7 +235,7 @@ export const chatService = {
 
   async summarizeDataset(summary: string) {
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: GEMINI_MODEL,
       contents: summary,
       config: {
         systemInstruction:
@@ -248,7 +250,7 @@ export const chatService = {
 
   async generateQuestions(prompt: string) {
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: GEMINI_MODEL,
       contents: prompt,
       config: {
         systemInstruction: `
@@ -291,7 +293,7 @@ Provide detailed, actionable feedback for each response in a structured format.
 `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: GEMINI_MODEL,
       contents: prompt,
       config: {
         systemInstruction: `You must return ONLY valid JSON matching this schema: 

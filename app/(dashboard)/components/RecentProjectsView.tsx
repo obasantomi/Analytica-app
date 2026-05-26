@@ -58,7 +58,11 @@ const RecentProjectsView = async () => {
 
       <div className="flex gap-7.5 w-full overflow-x-scroll">
         {userProjects.length === 0 ? (
-          <EmptyProjectView />
+          <EmptyProjectView
+            description="It looks like you haven't started your journey yet.
+Launch your first project to begin building your
+professional portfolio and unlocking AI insights."
+          />
         ) : (
           userProjects.map((up) => (
             <ProjectCard
