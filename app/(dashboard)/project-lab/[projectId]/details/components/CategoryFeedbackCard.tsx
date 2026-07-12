@@ -42,7 +42,7 @@ export function CategoryFeedbackCard({
   const Icon = categoryIconMap[area] ?? HiScale;
 
   return (
-    <article className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md">
+    <article className="flex h-full flex-col rounded-2xl border border-slate-200  bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md">
       <div className="flex items-start justify-between gap-4">
         <div className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-[#F2F4F6] text-[#001736]">
           <Icon className="h-5 w-5" aria-hidden />

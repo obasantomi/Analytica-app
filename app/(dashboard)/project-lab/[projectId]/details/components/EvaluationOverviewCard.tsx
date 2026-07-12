@@ -45,7 +45,7 @@ export function EvaluationOverviewCard({
           </div>
         </div>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-[220px_1fr] md:items-stretch">
+        <div className="mt-8">
           <div className="rounded-xl border border-white/10 bg-[rgba(255,255,255,0.06)] p-6 backdrop-blur-sm">
             <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#7594CA]">
               Summary

@@ -1,29 +1,12 @@
-import { prisma } from "@/prisma/client";
 import DashboardStatCard from "./DashboardStatCard";
 import RecentProjectsView from "./RecentProjectsView";
 import SkillRadarCard from "./SkillRadarCard";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 
-const session = await getServerSession();
+type DashboardViewProps = {
+  projectCount: number;
+};
 
-if (!session?.user?.email) {
-  redirect("/sign-in");
-}
-
-const user = await prisma.user.findUnique({
-  where: { email: session.user.email },
-});
-
-if (!user) {
-  redirect("/sign-up");
-}
-
-const projectCount = await prisma.userProject.count({
-  where: { userId: user.id },
-});
-
-const DashboardView = () => (
+const DashboardView = ({ projectCount }: DashboardViewProps) => (
   <section className="px-5 lg:px-10 pt-7.5 pb-17 w-full">
     <div className="flex flex-col items-start lg:flex-row w-full lg:items-center gap-10 justify-between">
       <div className="flex-1 flex gap-5 flex-col">

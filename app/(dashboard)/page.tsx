@@ -4,7 +4,6 @@ import { prisma } from "@/prisma/client";
 import authOptions from "../api/auth/authOptions";
 import DashboardView from "./components/DashboardView";
 
-
 const Dashboard = async () => {
   const session = await getServerSession(authOptions);
 
@@ -20,9 +19,13 @@ const Dashboard = async () => {
     redirect("/onboarding");
   }
 
+  const projectCount = await prisma.userProject.count({
+    where: { userId: user.id },
+  });
+
   return (
     <div>
-      <DashboardView />
+      <DashboardView projectCount={projectCount} />
     </div>
   );
 };

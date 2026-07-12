@@ -45,7 +45,7 @@ const page = () => {
   };
 
   return (
-    <div className="w-full h-full mx-auto bg-white rounded-r-lg shadow-[0_40px_120px_rgba(0,0,0,0.12)] p-8 text-slate-900">
+    <div className="w-full h-full flex flex-col gap-5 mx-auto bg-white rounded-r-lg shadow-[0_40px_120px_rgba(0,0,0,0.12)] p-8 text-slate-900">
       <Toaster />
       <div className="space-y-3 text-center mb-12 mt-20">
         <h1 className="text-4xl font-extrabold">Welcome Back</h1>
@@ -147,7 +147,7 @@ const page = () => {
         Continue with Google
       </button>
 
-      <div className="mt-20 text-center text-sm text-slate-600">
+      <div className="mt-auto text-center text-sm text-slate-600">
         Don't have an account yet?{" "}
         <a
           href="/sign-up"

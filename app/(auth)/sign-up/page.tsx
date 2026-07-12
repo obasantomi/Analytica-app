@@ -66,7 +66,7 @@ const page = () => {
   };
 
   return (
-    <div className="w-full mx-auto bg-white h-full rounded-r-lg shadow-[0_40px_120px_rgba(0,0,0,0.12)] p-8 text-slate-900">
+    <div className="w-full flex flex-col gap-5 mx-auto bg-white h-full rounded-r-lg shadow-[0_40px_120px_rgba(0,0,0,0.12)] p-8 text-slate-900">
       <Toaster />
       <div className="space-y-3 text-center mb-8 mt-8">
         <h1 className="text-4xl font-extrabold">Create Your Account</h1>
@@ -185,7 +185,7 @@ const page = () => {
         </button>
       </form>
 
-      <div className="mt-8 text-center text-sm text-slate-600">
+      <div className=" text-center mt-auto text-sm text-slate-600">
         Already have an account?{" "}
         <a
           href="/sign-in"

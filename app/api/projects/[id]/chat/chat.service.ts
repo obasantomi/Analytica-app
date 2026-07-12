@@ -4,171 +4,21 @@ import { z } from "zod";
 
 const GEMINI_MODEL = "gemini-3.5-flash";
 
-const questionJsonSchema = {
-  type: "array",
-  items: {
-    type: "object",
-    properties: {
-      hypothesis: {
-        type: "string",
-        description: "A falsifiable claim based on the dataset",
-      },
-
-      questions: {
-        type: "array",
-
-        items: {
-          type: "object",
-
-          properties: {
-            id: {
-              type: "string",
-            },
-
-            question: {
-              type: "string",
-            },
-
-            type: {
-              type: "string",
-
-              enum: [
-                "data visualization",
-                "insight generation",
-                "storytelling",
-                "bias & statistical awareness",
-                "cleaning",
-              ],
-            },
-
-            hint: {
-              type: "string",
-            },
-          },
-
-          required: ["id", "question", "type", "hint"],
-          additionalProperties: false,
-        },
-      },
-    },
-
-    required: ["hypothesis", "questions"],
-    additionalProperties: false,
-  },
-};
-
-const aiReviewJsonSchema = {
-  type: "object",
-  properties: {
-    overallGrade: {
-      type: "string",
-      description: "Overall performance grade as a percentage string",
-      pattern: "^\\d{1,3}%$",
-      examples: ["82%"],
-    },
-
-    overallSummary: {
-      type: "string",
-      description:
-        "Overall feedback summary describing the user's strengths, weaknesses, and recommendations",
-    },
-
-    categoryFeedback: {
-      type: "array",
-      description: "Feedback grouped by major data analysis areas",
-      items: {
-        type: "object",
-        properties: {
-          area: {
-            type: "string",
-            enum: [
-              "data visualization",
-              "insight generation",
-              "storytelling",
-              "bias & statistical awareness",
-              "cleaning",
-            ],
-          },
-
-          score: {
-            type: "integer",
-            minimum: 0,
-            maximum: 100,
-            description: "Score for this area",
-          },
-
-          feedback: {
-            type: "string",
-            description: "Detailed feedback for this area",
-          },
-        },
-
-        required: ["area", "score", "feedback"],
-        additionalProperties: false,
-      },
-    },
-
-    questionReviews: {
-      type: "array",
-      description: "AI evaluation and ideal answers for each question",
-      items: {
-        type: "object",
-        properties: {
-          questionId: {
-            type: "string",
-            description: "Unique identifier for the question",
-          },
-
-          question: {
-            type: "string",
-            description: "The original question",
-          },
-
-          aiIdealAnswer: {
-            type: "string",
-            description:
-              "The AI-generated ideal answer based on the dataset summary",
-          },
-
-          feedback: {
-            type: "string",
-            description:
-              "Feedback explaining how the user's answer compares to the ideal answer",
-          },
-        },
-
-        required: ["questionId", "question", "aiIdealAnswer", "feedback"],
-
-        additionalProperties: false,
-      },
-    },
-  },
-
-  required: [
-    "overallGrade",
-    "overallSummary",
-    "categoryFeedback",
-    "questionReviews",
-  ],
-
-  additionalProperties: false,
-};
-
 const questionSchema = z.array(
   z.object({
-    hypothesis: z.string().describe("A falsifiable claim based on the dataset"),
+    hypothesis: z.string(),
 
     questions: z.array(
       z.object({
         id: z.string(),
-
         question: z.string(),
 
         type: z.enum([
-          "descriptive",
-          "analytical",
-          "hypothesis_testing",
-          "prediction",
+          "data visualization",
+          "insight generation",
+          "storytelling",
+          "bias & statistical awareness",
+          "cleaning",
         ]),
 
         hint: z.string(),
@@ -207,12 +57,18 @@ const aiReviewSchema = z.object({
     }),
   ),
 });
+const aiReviewJsonSchema = z.toJSONSchema(aiReviewSchema);
+const questionJsonSchema = z.toJSONSchema(questionSchema);
 
 export type QuestionInterface = z.infer<typeof questionSchema>;
 export type AIReviewInterface = z.infer<typeof aiReviewSchema>;
-const ai = new GoogleGenAI({
-  apiKey: process.env.GOOGLE_GENAI_API_KEY || "",
-});
+const apiKey = process.env.GOOGLE_GENAI_API_KEY;
+
+if (!apiKey) {
+  throw new Error("GOOGLE_GENAI_API_KEY is not set");
+}
+
+const ai = new GoogleGenAI({ apiKey });
 
 export const chatService = {
   async analyze(assistantInstructions: string, content: MentorChatMessage[]) {
@@ -244,7 +100,7 @@ export const chatService = {
         maxOutputTokens: 1000,
       },
     });
-
+    console.log(response.text);
     return response.text || null;
   },
 
@@ -254,12 +110,27 @@ export const chatService = {
       contents: prompt,
       config: {
         systemInstruction: `
+You are an experienced data science mentor.
+
+Based on the dataset:
+
+- Generate ONE falsifiable hypothesis.
+- Generate THREE to FIVE analytical questions.
+- Each question should contain:
+  - id
+  - question
+  - type
+  - hint
+
 You must return ONLY valid JSON matching this schema:
 ${JSON.stringify(questionJsonSchema)}
 
 No markdown, no explanation.
-      `,
+`,
+        responseMimeType: "application/json",
+        responseSchema: questionJsonSchema,
         temperature: 0.2,
+        maxOutputTokens: 5000,
       },
     });
 
@@ -267,8 +138,22 @@ No markdown, no explanation.
       return null;
     }
 
-    const result = questionSchema.safeParse(JSON.parse(response.text));
-    return result.success ? result.data : null;
+    try {
+      const parsed = JSON.parse(response.text);
+
+      const result = questionSchema.safeParse(parsed);
+
+      if (!result.success) {
+        console.error(result.error.issues);
+        return null;
+      }
+
+      return result.data;
+    } catch (err) {
+      console.error("Gemini returned invalid JSON");
+      console.error(response.text);
+      return null;
+    }
   },
 
   async reviewProjectResponses(
@@ -302,6 +187,8 @@ Provide detailed, actionable feedback for each response in a structured format.
         No markdown, no explanation.       
         `,
         temperature: 0.3,
+        responseMimeType: "application/json",
+        responseSchema: aiReviewJsonSchema,
         maxOutputTokens: 5000,
       },
     });

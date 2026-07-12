@@ -48,12 +48,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased bg-[#F2F4F6] overflow-hidden`}
+      className={`${geistSans.variable} ${geistMono.variable} bg-[#F2F4F6] antialiased`}
     >
-      <ScrollToTop />
-      <AuthProvider>
-        <body className="min-h-screen">{children}</body>
-      </AuthProvider>
+      <body className="min-h-screen">
+        <ScrollToTop />
+        <AuthProvider>
+          <body className="min-h-screen">{children}</body>
+        </AuthProvider>
+      </body>
     </html>
   );
 }

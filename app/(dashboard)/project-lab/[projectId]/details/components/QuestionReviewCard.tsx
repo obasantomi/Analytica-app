@@ -47,7 +47,7 @@ export function QuestionReviewCard({
         className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-slate-50/80"
         aria-expanded={open}
       >
-        <div className="flex min-w-0 items-start gap-3">
+        <div className="flex min-w-0 items-start gap-3 cursor-pointer">
           <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#F2F4F6] text-[#001736]">
             <HiPencilSquare className="h-4 w-4" aria-hidden />
           </span>
