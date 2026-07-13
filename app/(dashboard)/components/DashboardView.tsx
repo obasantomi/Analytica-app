@@ -7,7 +7,7 @@ type DashboardViewProps = {
 };
 
 const DashboardView = ({ projectCount }: DashboardViewProps) => (
-  <section className="px-5 lg:px-10 pt-7.5 pb-17 w-full">
+  <section>
     <div className="flex flex-col items-start lg:flex-row w-full lg:items-center gap-10 justify-between">
       <div className="flex-1 flex gap-5 flex-col">
         <div>

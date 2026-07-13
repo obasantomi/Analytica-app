@@ -53,7 +53,7 @@ const DifficultySelector = ({
         </h2>
       </div>
 
-      <div className="relative w-full max-w-2xl">
+      <div className="relative w-full max-w-5xl">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg flex items-center justify-between hover:border-gray-300 transition-colors duration-200"

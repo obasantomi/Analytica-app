@@ -35,7 +35,7 @@ const DashboardShell = ({
   }, [isSidebarOpen]);
 
   return (
-    <div className="h-screen">
+    <div className="min-h-screen h-full">
       <header className="bg-[#F2F4F6] z-30 fixed top-0 right-0 left-0 flex border-b border-slate-200">
         <div className="mx-auto w-full max-w-432.5 flex items-center justify-between px-4 py-3 lg:px-8">
           <div className="flex items-center gap-4">
@@ -91,9 +91,9 @@ const DashboardShell = ({
       </aside>
 
       <main
-        className={`${!isOnProjectLabMainPage ? "md:ml-64" : " "} mt-[71.5px] pb-6.25 bg-[#eeeff1] h-full`}
+        className={`${!isOnProjectLabMainPage ? "md:ml-64" : " "} mt-[71.5px] bg-[#eeeff1] overflow-hidden h-full`}
       >
-        <div className="h-full overflow-y-scroll">{children}</div>
+        <div className="h-full overflow-scroll p-10">{children}</div>
       </main>
     </div>
   );

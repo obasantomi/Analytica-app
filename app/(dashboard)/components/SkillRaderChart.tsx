@@ -113,7 +113,17 @@ const SkillRadarCard = ({ skills }: SkillRadarChartProps) => {
               tick={{ fill: "#6b7280", fontSize: 12 }}
             />
 
-            <Tooltip />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "#1e293b",
+                border: "none",
+                borderRadius: "4px",
+                padding: "10px 28px",
+                color: "#fff",
+              }}
+              labelStyle={{ color: "#fff", fontWeight: "bold" }}
+              itemStyle={{ color: "#60a5fa" }}
+            />
 
             <Radar
               dataKey="goal"

@@ -80,7 +80,7 @@ const ProjectLabView = () => {
   };
 
   return (
-    <section className="px-5 lg:px-10 pt-7.5 pb-17 w-full">
+    <section className="h-full w-full flex flex-col">
       <div>
         <h1 className="text-3xl font-semibold text-slate-900">
           Configure Your Workspace
@@ -121,7 +121,7 @@ const ProjectLabView = () => {
         }
       />
 
-      <div className="mt-12">
+      <div className="mt-20">
         <button
           onClick={handleGenerateDataset}
           disabled={isGenerating}

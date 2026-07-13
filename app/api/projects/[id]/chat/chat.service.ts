@@ -115,7 +115,7 @@ You are an experienced data science mentor.
 Based on the dataset:
 
 - Generate ONE falsifiable hypothesis.
-- Generate THREE to FIVE analytical questions.
+- Generate FIVE to SEVEN analytical questions.
 - Each question should contain:
   - id
   - question

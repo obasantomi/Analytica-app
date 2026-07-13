@@ -55,7 +55,7 @@ const PastProjectsView = async () => {
         </div>
       </div>
 
-      <div className="flex w-full overflow-x-scroll lg:grid gap-5  content-center justify-items-center  grid-cols-[repeat(auto-fit,minmax(530px,1fr))]">
+      <div className="flex w-full overflow-x-scroll lg:grid gap-5 content-center justify-items-start grid-cols-[repeat(auto-fit,minmax(530px,1fr))] mt-20">
         {userProjects.length === 0 ? (
           <EmptyProjectView
             title="No Projects Yet"

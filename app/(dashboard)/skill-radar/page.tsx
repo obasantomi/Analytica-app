@@ -49,7 +49,7 @@ const SkillRadarPage = async () => {
   const { bestArea, growthArea, criticalAreas } = buildSkillSummary(skillData);
 
   return (
-    <section className="px-5 lg:px-10 pt-7.5 pb-17 w-full">
+    <section className="h-full w-full">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>

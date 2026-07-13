@@ -46,7 +46,7 @@ export default function ProjectCard({
         <h2 className="text-2xl font-bold text-slate-900 mb-3">{title}</h2>
 
         {/* Description */}
-        <p className="text-slate-600 leading-relaxed mb-6">{description}</p>
+        <p className="text-slate-600 leading-relaxed mb-6 text-xs">{description}</p>
 
         {/* Bottom row */}
         <div className="flex items-center gap-4 text-sm">

@@ -24,9 +24,9 @@ const Dashboard = async () => {
   });
 
   return (
-    <div>
+    <section className="w-full h-full">
       <DashboardView projectCount={projectCount} />
-    </div>
+    </section>
   );
 };
 

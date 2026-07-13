@@ -40,54 +40,62 @@ Project Summary: ${summary}
 
 Please provide the questions in a JSON array format.`;
 
-  const chatSummary = await chatService.summarizeDataset(summary);
-  const chatQuestions = await chatService.generateQuestions(prompt);
+  try {
+    const chatSummary = await chatService.summarizeDataset(summary);
+    const chatQuestions = await chatService.generateQuestions(prompt);
 
-  console.log(chatSummary);
-  console.log(chatQuestions);
+    console.log(chatSummary);
+    console.log(chatQuestions);
 
-  if (!chatSummary || !chatQuestions) {
-    return NextResponse.json(
-      { error: "Failed to generate AI insights" },
-      { status: 500 },
-    );
-  }
-  // Create a new project in the database
-  const project = await prisma.project.create({
-    data: {
-      title,
-      difficulty: body.difficulty!,
-      category,
-      domain: body.scenario!,
-      dataset: {
-        create: {
-          name: title,
-          description: chatSummary || summary,
-          datasetConfig,
-        },
-      },
-      userProjects: {
-        create: {
-          user: {
-            connect: {
-              id: user.id,
-            },
+    if (!chatSummary || !chatQuestions) {
+      return NextResponse.json(
+        { error: "Failed to generate AI insights" },
+        { status: 500 },
+      );
+    }
+    // Create a new project in the database
+    const project = await prisma.project.create({
+      data: {
+        title,
+        description: chatSummary || summary,
+        difficulty: body.difficulty!,
+        category,
+        domain: body.scenario!,
+        dataset: {
+          create: {
+            name: title,
+            description: chatSummary || summary,
+            datasetConfig,
           },
-          aiQuestions: chatQuestions,
-          status: "IN_PROGRESS",
+        },
+        userProjects: {
+          create: {
+            user: {
+              connect: {
+                id: user.id,
+              },
+            },
+            aiQuestions: chatQuestions,
+            status: "IN_PROGRESS",
+          },
         },
       },
-    },
-  });
+    });
 
-  if (!project) {
+    if (!project) {
+      return NextResponse.json(
+        { error: "Failed to create project" },
+        { status: 500 },
+      );
+    }
+
+    // Configure AI operations using datasetParameters and project details (if needed)
+    return NextResponse.json({ projectId: project.id }, { status: 200 });
+  } catch (error) {
+    console.error("Error generating AI insights:", error);
     return NextResponse.json(
-      { error: "Failed to create project" },
+      { error: "An error occurred while generating AI insights" },
       { status: 500 },
     );
   }
-
-  // Configure AI operations using datasetParameters and project details (if needed)
-
-  return NextResponse.json({ projectId: project.id }, { status: 200 });
 }

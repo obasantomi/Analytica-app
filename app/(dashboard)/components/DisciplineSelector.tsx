@@ -64,7 +64,7 @@ const DisciplineSelector = ({
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-300">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-700">
         {disciplines.map((discipline) => (
           <button
             key={discipline.id}

@@ -42,7 +42,7 @@ const page = async ({ params }: Props) => {
   const aiFeedback = userProject.aiFeedback as AIReviewInterface | null;
 
   return (
-    <div className="min-h-full w-full p-10 pb-20  text-slate-900 ">
+    <div className="h-full w-full text-slate-900">
       <div className="space-y-12">
         <header className=" mb-5">
           <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-slate-500">

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FiPlus } from "react-icons/fi";
 
 const ProjectLabPage = () => (
-  <section className="px-5 md:px-10 pt-7.5 pb-15 lg:pb-20 w-full">
+  <section className="h-full w-full">
     <div>
       <h1 className="text-3xl font-semibold text-slate-900">Project Lab</h1>
       <p className="mt-3 max-w-xl text-sm text-slate-600">
