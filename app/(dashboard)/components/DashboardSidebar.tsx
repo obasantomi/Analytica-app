@@ -27,7 +27,7 @@ interface DashboardNavProps {
 const navItems: NavItem[] = [
   { label: "Dashboard", href: "/", icon: FiGrid },
   { label: "Project Lab", href: "/project-lab", icon: FiLayers },
-  { label: "Skill Radar", href: "/skill-radar", icon: FiBarChart2 },
+  { label: "Skill Profile", href: "/skill-profile", icon: FiBarChart2 },
 ];
 
 const DashboardSidebar = ({ level, role }: DashboardNavProps) => {

@@ -45,11 +45,11 @@ const page = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col gap-5 mx-auto bg-white rounded-r-lg shadow-[0_40px_120px_rgba(0,0,0,0.12)] p-8 text-slate-900">
+    <div className="mx-auto flex h-full w-full flex-col gap-5 rounded-r-lg bg-white p-4 text-slate-900 shadow-[0_40px_120px_rgba(0,0,0,0.12)] sm:p-8">
       <Toaster />
-      <div className="space-y-3 text-center mb-12 mt-20">
-        <h1 className="text-4xl font-extrabold">Welcome Back</h1>
-        <p className="text-slate-500">
+      <div className="mt-8 mb-6 space-y-3 text-center sm:mb-12 sm:mt-20">
+        <h1 className="text-2xl font-extrabold sm:text-4xl">Welcome Back</h1>
+        <p className="text-sm text-slate-500 sm:text-base">
           Please enter your details to continue your journey.
         </p>
       </div>
@@ -115,7 +115,7 @@ const page = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full flex justify-center gap-4 rounded-3xl px-5 py-4 text-sm font-semibold text-slate-950 transition ${
+          className={`flex w-full justify-center gap-4 rounded-3xl px-5 py-3 text-sm font-semibold text-slate-950 transition sm:py-4 ${
             isSubmitting
               ? "bg-slate-300 cursor-not-allowed"
               : "bg-teal-400 hover:bg-teal-300"
@@ -132,7 +132,7 @@ const page = () => {
         </button>
       </form>
 
-      <div className="relative my-10">
+      <div className="relative my-6 sm:my-10">
         <div className="absolute inset-x-0 top-1/2 border-t border-slate-200" />
         <div className="relative mx-auto w-fit bg-white px-3 text-xs uppercase tracking-[0.3em] text-slate-500">
           Or continue with
@@ -147,7 +147,7 @@ const page = () => {
         Continue with Google
       </button>
 
-      <div className="mt-auto text-center text-sm text-slate-600">
+      <div className="mt-auto text-center text-xs text-slate-600 sm:text-sm">
         Don't have an account yet?{" "}
         <a
           href="/sign-up"

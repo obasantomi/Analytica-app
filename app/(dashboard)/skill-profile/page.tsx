@@ -47,7 +47,7 @@ function buildSkillSummary(skills?: Record<string, number> | null) {
   };
 }
 
-const GrowthPerformancePage = async () => {
+const SkillProfilePage = async () => {
   const session = await getServerSession();
   let skillData: Record<string, number> | null = null;
 
@@ -75,7 +75,7 @@ const GrowthPerformancePage = async () => {
           <div className="flex-1 flex flex-col gap-5">
             <div>
               <p className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-                Skill Radar
+                Growth & Performance
               </p>
               <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-[15px]">
                 Explore your core strengths, growth focus, and the skills that
@@ -209,4 +209,4 @@ const GrowthPerformancePage = async () => {
   );
 };
 
-export default GrowthPerformancePage;
+export default SkillProfilePage;

@@ -61,7 +61,7 @@ const ProjectLabView = () => {
       console.log(error);
       console.log("something went wrong");
       if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data?.error || "An unexpected error occurred. Please try again.", {
+        toast.error(error.response?.data?.error || "An unexpected error occurred. Please try again later.", {
           style: { fontSize: "14px" },
         });
       } else {

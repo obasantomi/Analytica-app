@@ -27,10 +27,10 @@ export default function ProjectCard({
   projectId,
 }: ProjectCardProps) {
   return (
-    <div className="relative group flex cursor-pointer max-w-140 bg-[#F2F4F6] w-full rounded gap-1">
+    <div className="relative group flex w-full max-w-140 cursor-pointer flex-col gap-1 rounded bg-[#F2F4F6] md:flex-row">
       <div className="absolute hidden group-hover:block pointer-events-none inset-0 bg-black/10 " />
       {/* LEFT PANEL */}
-      <div className="bg-white rounded w-full max-w-100 p-6 pb-42.5  border">
+      <div className="w-full rounded border bg-white p-4 pb-24 sm:p-6 sm:pb-42.5 md:max-w-100">
         {/* Top row */}
         <div className="flex justify-between gap-1 items-center mb-4">
           <span className="text-[12px] whitespace-nowrap bg-blue-100 text-blue-700 px-2 py-1 rounded-md">
@@ -43,10 +43,14 @@ export default function ProjectCard({
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl font-bold text-slate-900 mb-3">{title}</h2>
+        <h2 className="mb-3 text-xl font-bold text-slate-900 sm:text-2xl">
+          {title}
+        </h2>
 
         {/* Description */}
-        <p className="text-slate-600 leading-relaxed mb-6 text-xs">{description}</p>
+        <p className="mb-6 text-[11px] leading-relaxed text-slate-600 sm:text-xs">
+          {description}
+        </p>
 
         {/* Bottom row */}
         <div className="flex items-center gap-4 text-sm">
@@ -70,7 +74,7 @@ export default function ProjectCard({
       </div>
 
       {/* RIGHT PANEL */}
-      <div className="bg-emerald-900 w-full min-w-55.5 text-white rounded p-6 flex flex-col gap-2 justify-between">
+      <div className="flex w-full flex-col justify-between gap-2 rounded bg-emerald-900 p-4 text-white sm:p-6 md:min-w-55.5">
         <div>
           <p className="text-emerald-300 text-sm  font-semibold mb-3">
             AI CRITIQUE

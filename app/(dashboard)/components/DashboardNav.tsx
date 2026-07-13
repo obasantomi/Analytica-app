@@ -18,7 +18,7 @@ const DashboardNav = ({ name, image }: DashboardNavProps) => {
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="rounded-full border shadow-sm transition hover:shadow-md"
+        className="rounded-full border shadow-sm cursor-pointer transition hover:shadow-md"
       >
         {image ? (
           <img

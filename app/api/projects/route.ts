@@ -94,7 +94,7 @@ Please provide the questions in a JSON array format.`;
   } catch (error) {
     console.error("Error generating AI insights:", error);
     return NextResponse.json(
-      { error: "An error occurred while generating AI insights" },
+      { error: "An error occurred while generating AI insights, please try again later." },
       { status: 500 },
     );
   }

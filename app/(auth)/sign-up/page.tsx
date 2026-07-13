@@ -66,11 +66,13 @@ const page = () => {
   };
 
   return (
-    <div className="w-full flex flex-col gap-5 mx-auto bg-white h-full rounded-r-lg shadow-[0_40px_120px_rgba(0,0,0,0.12)] p-8 text-slate-900">
+    <div className="mx-auto flex h-full w-full flex-col gap-5 rounded-r-lg bg-white p-4 text-slate-900 shadow-[0_40px_120px_rgba(0,0,0,0.12)] sm:p-8">
       <Toaster />
-      <div className="space-y-3 text-center mb-8 mt-8">
-        <h1 className="text-4xl font-extrabold">Create Your Account</h1>
-        <p className="text-slate-500">
+      <div className="mt-6 mb-6 space-y-3 text-center sm:mt-8 sm:mb-8">
+        <h1 className="text-2xl font-extrabold sm:text-4xl">
+          Create Your Account
+        </h1>
+        <p className="text-sm text-slate-500 sm:text-base">
           Start your journey into precision analytics.
         </p>
       </div>
@@ -85,7 +87,7 @@ const page = () => {
         </button>
       </div>
 
-      <div className="relative mt-10 mb-10">
+      <div className="relative my-6 sm:my-10">
         <div className="absolute inset-x-0 top-1/2 border-t border-slate-200" />
         <div className="relative mx-auto w-fit bg-white px-3 text-xs uppercase tracking-[0.3em] text-slate-500">
           Or register with email
@@ -168,7 +170,7 @@ const page = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full flex justify-center gap-4 rounded-3xl px-5 py-4 mt-8 text-sm font-semibold text-slate-950 transition ${
+          className={`mt-6 flex w-full justify-center gap-4 rounded-3xl px-5 py-3 text-sm font-semibold text-slate-950 transition sm:mt-8 sm:py-4 ${
             isSubmitting
               ? "bg-slate-300 cursor-not-allowed"
               : "bg-teal-400 hover:bg-teal-300"
@@ -185,7 +187,7 @@ const page = () => {
         </button>
       </form>
 
-      <div className=" text-center mt-auto text-sm text-slate-600">
+      <div className="mt-auto text-center text-xs text-slate-600 sm:text-sm">
         Already have an account?{" "}
         <a
           href="/sign-in"

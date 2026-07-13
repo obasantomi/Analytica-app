@@ -37,13 +37,13 @@ const DashboardShell = ({
   return (
     <div className="min-h-screen h-full">
       <header className="bg-[#F2F4F6] z-30 fixed top-0 right-0 left-0 flex border-b border-slate-200">
-        <div className="mx-auto w-full max-w-432.5 flex items-center justify-between px-4 py-3 lg:px-8">
+        <div className="mx-auto w-full max-w-432.5 flex items-center justify-between px-3 py-2 sm:px-4 sm:py-3 lg:px-8">
           <div className="flex items-center gap-4">
             {!isOnProjectLabMainPage && (
               <button
                 type="button"
                 onClick={() => setIsSidebarOpen(true)}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-300 bg-white text-slate-700 shadow-sm transition hover:bg-slate-100 md:hidden"
+                className="inline-flex text-black md:hidden"
                 aria-label="Open menu"
               >
                 <FiMenu className="h-5 w-5" />
@@ -76,12 +76,11 @@ const DashboardShell = ({
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-slate-200 px-4 py-4">
-          <div className="text-lg font-semibold text-slate-900">Menu</div>
+        <div className="flex flex-row-reverse items-center justify-between border-b border-slate-200 px-4 py-4">
           <button
             type="button"
             onClick={() => setIsSidebarOpen(false)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-300 bg-white text-slate-700 shadow-sm transition hover:bg-slate-100"
+            className="self-end text-xl text-black sm:text-2xl"
             aria-label="Close menu"
           >
             <FiX className="h-5 w-5" />
@@ -93,7 +92,9 @@ const DashboardShell = ({
       <main
         className={`${!isOnProjectLabMainPage ? "md:ml-64" : " "} mt-[71.5px] bg-[#eeeff1] overflow-hidden h-full`}
       >
-        <div className="h-full overflow-scroll p-10">{children}</div>
+        <div className="h-full overflow-scroll p-3 sm:p-5 lg:p-10">
+          {children}
+        </div>
       </main>
     </div>
   );

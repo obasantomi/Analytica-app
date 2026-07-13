@@ -8,19 +8,25 @@ type DashboardViewProps = {
 
 const DashboardView = ({ projectCount }: DashboardViewProps) => (
   <section>
-    <div className="flex flex-col items-start lg:flex-row w-full lg:items-center gap-10 justify-between">
-      <div className="flex-1 flex gap-5 flex-col">
+    <div className="flex flex-col items-start justify-between gap-6 w-full lg:flex-row lg:items-center lg:gap-10">
+      <div className="flex flex-1 flex-col gap-4 sm:gap-5">
         <div>
-          <h1 className="text-3xl font-semibold text-slate-900">Dashboard</h1>
-          <p className="mt-3 max-w-xl text-sm text-slate-600">
+          <h1 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+            Dashboard
+          </h1>
+          <p className="mt-2 max-w-xl text-xs text-slate-600 sm:mt-3 sm:text-sm">
             Deepen your expertise through industry-grade challenges. Your path
             is defined by the problems you solve.
           </p>
         </div>
 
         <div>
-          <div className="italic text-[13px] rounded max-w-md p-3 bg-[#001736] flex gap-2 text-white">
-            <img src="/images/Icon.svg" alt="" className="text-[#001736]" />
+          <div className="flex max-w-md items-start gap-2 rounded bg-[#001736] p-2.5 text-[12px] italic text-white sm:p-3 sm:text-[13px]">
+            <img
+              src="/images/Icon.svg"
+              alt=""
+              className="mt-0.5 text-[#001736]"
+            />
             <p>Powered by AI to adapt, guide, and accelerate your growth.</p>
           </div>
         </div>
