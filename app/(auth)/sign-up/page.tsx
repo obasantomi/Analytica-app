@@ -37,7 +37,7 @@ const page = () => {
         });
 
         if (sessionCreate?.ok) {
-          router.push("/");
+          router.push("/dashboard");
         } else {
           toast.error("Account created but failed to sign in.", {
             position: "top-right",

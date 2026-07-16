@@ -136,9 +136,9 @@ const page = async ({ params }: Props) => {
   };
 
   return (
-    <div className="">
-      <div className="h-full lg:mr-109.75 bg-[#f8fafc] pb-5 p-10 lg:pb-20 text-slate-900 ">
-        <div className="mx-auto w-full">
+    <div className="min-h-screen">
+      <div className="h-full overflow-scroll lg:mr-[440px] bg-[#eeeff1] text-slate-900">
+        <div className="w-full">
           <ProjectLabMainColumn viewModel={viewModel} />
         </div>
       </div>

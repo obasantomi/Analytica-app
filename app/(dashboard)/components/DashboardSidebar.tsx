@@ -25,7 +25,7 @@ interface DashboardNavProps {
 }
 
 const navItems: NavItem[] = [
-  { label: "Dashboard", href: "/", icon: FiGrid },
+  { label: "Dashboard", href: "/dashboard", icon: FiGrid },
   { label: "Project Lab", href: "/project-lab", icon: FiLayers },
   { label: "Skill Profile", href: "/skill-profile", icon: FiBarChart2 },
 ];

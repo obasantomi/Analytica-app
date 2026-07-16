@@ -117,7 +117,7 @@ export const AIMentorPanel = ({ projectId }: AIMentorPanelProps) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full overflow-scroll">
       <Toaster position="top-right" />
       {/* Mobile trigger */}
       <div className="lg:hidden pb-15 px-5 ">

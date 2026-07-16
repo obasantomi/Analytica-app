@@ -75,7 +75,7 @@ const SkillProfilePage = async () => {
           <div className="flex-1 flex flex-col gap-5">
             <div>
               <p className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-                Growth & Performance
+                Skill Radar
               </p>
               <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-[15px]">
                 Explore your core strengths, growth focus, and the skills that

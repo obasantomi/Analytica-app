@@ -4,6 +4,56 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Analytica Landing Page — Color System */
+  --landing-navy: #0b1f3a;
+  --landing-blue: #2563eb;
+  --landing-success: #22c55e;
+  --color-accent-green: var(--landing-success);
+  --landing-surface: #ffffff;
+  --landing-surface-muted: #f8fafc;
+  --landing-border: #e2e8f0;
+  --landing-border-subtle: rgba(11, 31, 58, 0.08);
+  --landing-text-primary: #0b1f3a;
+  --landing-text-secondary: #475569;
+  --landing-text-muted: #94a3b8;
+  --landing-text-inverse: #ffffff;
+
+  /* Analytica Landing Page — Spacing Scale */
+  --landing-space-1: 0.5rem; /* 8px */
+  --landing-space-2: 1rem; /* 16px */
+  --landing-space-3: 1.5rem; /* 24px */
+  --landing-space-4: 2rem; /* 32px */
+  --landing-space-5: 3rem; /* 48px */
+  --landing-space-6: 4rem; /* 64px */
+  --landing-space-7: 6rem; /* 96px */
+  --landing-space-8: 8rem; /* 128px */
+  --landing-space-9: 10rem; /* 160px */
+
+  /* Analytica Landing Page — Layout */
+  --landing-max-width: 80rem; /* 1280px */
+  --landing-content-width: 56.25rem; /* 900px */
+  --landing-text-width: 45rem; /* 720px */
+  --landing-nav-height: 4.5rem; /* 72px */
+
+  /* Analytica Landing Page — Border Radius */
+  --landing-radius-card: 1.5rem; /* 24px */
+  --landing-radius-button: 0.875rem; /* 14px */
+  --landing-radius-input: 0.875rem; /* 14px */
+  --landing-radius-badge: 9999px;
+
+  /* Analytica Landing Page — Shadows */
+  --landing-shadow-card: 0 4px 24px -4px rgba(11, 31, 58, 0.08);
+  --landing-shadow-elevated: 0 8px 32px -8px rgba(11, 31, 58, 0.12);
+  --landing-shadow-button: 0 2px 8px -2px rgba(11, 31, 58, 0.15);
+
+  /* Analytica Landing Page — Motion */
+  --landing-duration-fast: 120ms;
+  --landing-duration-normal: 200ms;
+  --landing-duration-section: 600ms;
+  --landing-duration-nav: 300ms;
+  --landing-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --landing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @theme inline {
@@ -11,6 +61,41 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Landing page theme tokens */
+  --color-landing-navy: var(--landing-navy);
+  --color-landing-blue: var(--landing-blue);
+  --color-landing-success: var(--landing-success);
+  --color-landing-surface: var(--landing-surface);
+  --color-landing-surface-muted: var(--landing-surface-muted);
+  --color-landing-border: var(--landing-border);
+  --color-landing-text-primary: var(--landing-text-primary);
+  --color-landing-text-secondary: var(--landing-text-secondary);
+  --color-landing-text-muted: var(--landing-text-muted);
+  --color-landing-text-inverse: var(--landing-text-inverse);
+
+  --spacing-landing-1: var(--landing-space-1);
+  --spacing-landing-2: var(--landing-space-2);
+  --spacing-landing-3: var(--landing-space-3);
+  --spacing-landing-4: var(--landing-space-4);
+  --spacing-landing-5: var(--landing-space-5);
+  --spacing-landing-6: var(--landing-space-6);
+  --spacing-landing-7: var(--landing-space-7);
+  --spacing-landing-8: var(--landing-space-8);
+  --spacing-landing-9: var(--landing-space-9);
+
+  --radius-landing-card: var(--landing-radius-card);
+  --radius-landing-button: var(--landing-radius-button);
+  --radius-landing-input: var(--landing-radius-input);
+  --radius-landing-badge: var(--landing-radius-badge);
+
+  --shadow-landing-card: var(--landing-shadow-card);
+  --shadow-landing-elevated: var(--landing-shadow-elevated);
+  --shadow-landing-button: var(--landing-shadow-button);
+
+  --max-width-landing: var(--landing-max-width);
+  --max-width-landing-content: var(--landing-content-width);
+  --max-width-landing-text: var(--landing-text-width);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,4 +107,47 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Analytica Landing Page — Typography System */
+@layer components {
+  .landing-display {
+    @apply text-4xl font-bold leading-[1.05] tracking-tight text-landing-text-primary sm:text-5xl md:text-6xl lg:text-7xl;
+  }
+
+  .landing-heading {
+    @apply text-3xl font-bold leading-tight tracking-tight text-landing-text-primary sm:text-4xl md:text-5xl;
+  }
+
+  .landing-body {
+    @apply text-base leading-relaxed text-landing-text-secondary sm:text-lg;
+  }
+
+  .landing-caption {
+    @apply text-sm leading-normal text-landing-text-muted;
+  }
+
+  .landing-card {
+    @apply rounded-[1.5rem] border border-landing-border bg-landing-surface p-landing-3 shadow-landing-card;
+  }
+
+  .landing-card-muted {
+    @apply rounded-[1.5rem] border border-landing-border bg-landing-surface-muted p-landing-3 shadow-landing-card;
+  }
+
+  .landing-hero-line-muted {
+    color: color-mix(in srgb, var(--landing-navy) 42%, var(--landing-blue) 58%);
+    opacity: 0.58;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

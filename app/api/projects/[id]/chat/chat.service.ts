@@ -2,7 +2,7 @@ import { MentorChatMessage } from "@/app/(dashboard)/project-lab/components/AIMe
 import { GoogleGenAI } from "@google/genai";
 import { z } from "zod";
 
-const GEMINI_MODEL = "gemini-3.5-flash";
+const GEMINI_MODEL = "gemini-flash-latest";
 
 const questionSchema = z.array(
   z.object({

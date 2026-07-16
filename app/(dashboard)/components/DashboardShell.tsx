@@ -5,6 +5,7 @@ import { FiMenu, FiX } from "react-icons/fi";
 import DashboardNav from "./DashboardNav";
 import DashboardSidebar from "./DashboardSidebar";
 import { useParams, usePathname } from "next/navigation";
+import Link from "next/link";
 
 interface DashboardShellProps {
   children: React.ReactNode;
@@ -49,9 +50,9 @@ const DashboardShell = ({
                 <FiMenu className="h-5 w-5" />
               </button>
             )}
-            <div className="text-[#002B5B] text-[24px] font-bold">
+            <Link href="/" className="text-[#002B5B] text-[24px] font-bold">
               Analytica
-            </div>
+            </Link>
           </div>
 
           <DashboardNav name={userName} image={userImage} />

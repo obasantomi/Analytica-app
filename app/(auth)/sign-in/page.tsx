@@ -34,7 +34,7 @@ const page = () => {
         position: "top-right",
         style: { fontSize: "14px" },
       });
-      router.push("/");
+      router.push("/dashboard");
     } else {
       console.log("Sign in failed: ", response?.error);
       toast.error("Invalid email or password.", {
