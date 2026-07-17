@@ -147,7 +147,7 @@ const page = () => {
         Continue with Google
       </button>
 
-      <div className="mt-auto text-center text-xs text-slate-600 sm:text-sm">
+      <div className="mt-auto mb-10 text-center text-xs text-slate-600 sm:text-sm">
         Don't have an account yet?{" "}
         <a
           href="/sign-up"

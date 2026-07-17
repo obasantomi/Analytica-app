@@ -187,7 +187,7 @@ const page = () => {
         </button>
       </form>
 
-      <div className="mt-auto text-center text-xs text-slate-600 sm:text-sm">
+      <div className="mt-auto mb-10 text-center text-xs text-slate-600 sm:text-sm">
         Already have an account?{" "}
         <a
           href="/sign-in"

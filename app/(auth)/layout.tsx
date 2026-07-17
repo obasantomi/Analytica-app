@@ -11,7 +11,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
         <div className="max-w-170 hidden md:block w-full h-full">
           <AuthLayoutStyle />
         </div>
-        <div className="bg-white shadow-[0_40px_120px_rgba(0,0,0,0.12)] w-full rounded-r-lg">
+        <div className="bg-white h-screen shadow-[0_40px_120px_rgba(0,0,0,0.12)] w-full rounded-r-lg">
           {children}
         </div>
       </div>
