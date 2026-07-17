@@ -128,11 +128,11 @@ body {
   }
 
   .landing-card {
-    @apply rounded-[1.5rem] border border-landing-border bg-landing-surface p-landing-3 shadow-landing-card;
+    @apply rounded-3xl border border-landing-border bg-landing-surface p-landing-3 shadow-landing-card;
   }
 
   .landing-card-muted {
-    @apply rounded-[1.5rem] border border-landing-border bg-landing-surface-muted p-landing-3 shadow-landing-card;
+    @apply rounded-3xl border border-landing-border bg-landing-surface-muted p-landing-3 shadow-landing-card;
   }
 
   .landing-hero-line-muted {

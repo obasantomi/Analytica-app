@@ -61,7 +61,7 @@ const OnboardingClient = ({ userEmail, userName }: OnboardingClientProps) => {
     if (missingExpertise) missingFields.push("expertise level");
     if (missingExperience) missingFields.push("analytics experience");
     if (missingDomains) missingFields.push("domain interest(s)");
-    
+
     if (missingFields.length > 0) {
       const message =
         missingFields.length === 1
@@ -83,7 +83,7 @@ const OnboardingClient = ({ userEmail, userName }: OnboardingClientProps) => {
           position: "top-right",
           style: { fontSize: "14px" },
         });
-        router.push("/");
+        router.push("/dashboard");
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
