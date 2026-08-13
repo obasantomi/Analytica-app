@@ -18,14 +18,14 @@ export default function FooterShell() {
 
           <div className="flex flex-wrap items-center gap-landing-3 text-sm text-landing-text-secondary">
             <a
-              href="mailto:hello@analytica.app"
+              href="mailto:obasantomilola@gmail.com"
               className="inline-flex items-center gap-2 transition-colors hover:text-landing-navy"
             >
               <BiEnvelope className="size-4" aria-hidden="true" />
-              hello@analytica.app
+              obasantomilola@gmail.com
             </a>
             <a
-              href="https://www.linkedin.com"
+              href="https://www.linkedin.com/in/tomilola-obasan/"
               target="_blank"
               rel="noreferrer"
               className="transition-colors hover:text-landing-navy"
@@ -34,7 +34,7 @@ export default function FooterShell() {
               <BiLogoLinkedin className="size-5" aria-hidden="true" />
             </a>
             <a
-              href="https://www.x.com"
+              href="https://x.com/obasan_tomilola"
               target="_blank"
               rel="noreferrer"
               className="transition-colors hover:text-landing-navy"

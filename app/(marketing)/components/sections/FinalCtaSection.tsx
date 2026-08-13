@@ -27,7 +27,7 @@ export default function FinalCtaSection() {
             Ready to begin
           </p>
           <h2 className="mt-landing-2 landing-heading text-balance">
-            You’ve completed the introduction. Now begin your journey.
+            You've completed the introduction. Now begin your journey.
           </h2>
           <p className="mt-landing-3 landing-body max-w-landing-text text-pretty">
             Join the beta and start working through your first guided analytics
